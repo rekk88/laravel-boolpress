@@ -14,9 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('guest.welcome');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+// Route::get('/home', 'HomeController@index')->name('home');
+// il middleware impedisce di vedere le routes per tutti gli utenti che non sono 
+// loggati e in questo caso che non sono admin
+Route::middleware('auth')->namespace('Admin')->prefix('admin')->name('admin.')
+        ->group(function() {
+            // pagina di atterraggio dopo il login (con il prefisso, l'url è '/admin')
+            Route::get('/', 'HomeController@index')->name('index');
+});
