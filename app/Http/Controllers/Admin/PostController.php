@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Post;
+use Illuminate\Support\Str; //per far funzionare lo slug
+use App\Post; //importo il model di post
 
 class PostController extends Controller
 {
@@ -37,7 +38,16 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //prendo i dati
+        $data = $request->all();
+        //li salvo in un istanza di post usando le fillable (definite nel model)
+        $newPost = new Post();
+        $newPost->slug = Str::slug($data['title'], '-');
+        $newPost->fill($data);
+        //salvo nel db
+        $newPost->save();
+
+        return redirect()->route('admin.posts.index');
     }
 
     /**
