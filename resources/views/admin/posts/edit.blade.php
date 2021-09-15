@@ -7,7 +7,7 @@
         @method('PATCH')
         <div class="mb-3">
           <label for="titolo" class="form-label">Titolo</label>
-          <input type="text" class="form-control" id="titolo" value="{{$post->title}}">
+          <input type="text" name="title" class="form-control" id="titolo" value="{{$post->title}}">
         </div>
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Descrizione</label>

@@ -83,7 +83,9 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $data = $request->all();
-
+        if($data['title'] != $post->title){
+          $data['slug'] = Str::slug($data['title'], '-'); 
+        }
         $post->update($data);
         return redirect()->route('admin.posts.index');
     }
