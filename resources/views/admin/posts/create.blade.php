@@ -30,7 +30,7 @@
       name="content" id="desc" cols="30" rows="10" value="{{old('content')}}"></textarea>
       @error('content')
       <div class="alert alert-danger">{{$message}}</div>
-  @enderror
+      @enderror
      </div>
      
     <button type="submit" class="btn btn-primary">Submit</button>
