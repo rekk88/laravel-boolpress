@@ -51,7 +51,7 @@ class PostController extends Controller
         $counter = 1;
 
         while ($slug_presente) {
-          
+
           $slug = $slug_base . '-' . $counter;
           $slug_presente = Post::where('slug' , $slug)->first();
           $counter++;
@@ -125,8 +125,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('admin.posts.index');
     }
 }
