@@ -84,7 +84,23 @@ class PostController extends Controller
     {
         $data = $request->all();
         if($data['title'] != $post->title){
-          $data['slug'] = Str::slug($data['title'], '-'); 
+          $slug = Str::slug($data['title'], '-'); 
+          $slug_base = $slug;
+          $slug_presente = Post::where('slug', $slug)->first();
+          $counter = 1;
+
+          while($slug_presente){
+            $slug = $slug_base . '-' . $counter;
+
+            $slug_presente = Post::where('slug', $slug)->first();
+              
+              
+              $counter++;
+              
+          }
+
+          $data['slug'] = $slug;
+
         }
         $post->update($data);
         return redirect()->route('admin.posts.index');
