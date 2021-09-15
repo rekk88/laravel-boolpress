@@ -42,7 +42,23 @@ class PostController extends Controller
         $data = $request->all();
         //li salvo in un istanza di post usando le fillable (definite nel model)
         $newPost = new Post();
-        $newPost->slug = Str::slug($data['title'], '-');
+        //salvo lo slug in una variabile
+        $slug = Str::slug($data['title'], '-');
+        //salvo lo slug in una variabile di appoggio
+        $slug_base = $slug;
+        //controllo se già esiste lo slug
+        $slug_presente = Post::where('slug' , $slug)->first();
+        $counter = 1;
+
+        while ($slug_presente) {
+          
+          $slug = $slug_base . '-' . $counter;
+          $slug_presente = Post::where('slug' , $slug)->first();
+          $counter++;
+        }
+
+
+        $newPost->slug = $slug;
         $newPost->fill($data);
         //salvo nel db
         $newPost->save();
@@ -93,10 +109,7 @@ class PostController extends Controller
             $slug = $slug_base . '-' . $counter;
 
             $slug_presente = Post::where('slug', $slug)->first();
-              
-              
               $counter++;
-              
           }
 
           $data['slug'] = $slug;
