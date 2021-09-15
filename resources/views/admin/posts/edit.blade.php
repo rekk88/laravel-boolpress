@@ -2,6 +2,13 @@
 
 @section('content')
     <div class="container">
+       @if ($errors->any())
+          <ul>
+              @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+              @endforeach
+          </ul>
+        @endif
       <form action="{{route('admin.posts.update', $post->id)}}" method="post">
         @csrf
         @method('PATCH')
