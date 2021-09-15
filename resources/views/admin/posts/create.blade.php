@@ -13,10 +13,10 @@
     @csrf
     <div class="mb-3">
       <label for="titolo" class="form-label">Titolo</label>
-      <input type="text" class="form-control" id="titolo" name="title">
+      <input type="text" class="form-control" id="titolo" name="title" value="{{old('title')}}">
     </div>
     <div class="mb-3">
-      <textarea class="form-control" name="content" id="desc" cols="30" rows="10"></textarea>
+      <textarea class="form-control" name="content" id="desc" cols="30" rows="10" value="{{old('content')}}"></textarea>
      </div>
     
     <button type="submit" class="btn btn-primary">Submit</button>
