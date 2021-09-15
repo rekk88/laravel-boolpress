@@ -38,6 +38,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
+
+        $request->validate([
+          'title' => 'required|max:255',
+          'content' => 'required'
+        ]);
         //prendo i dati
         $data = $request->all();
         //li salvo in un istanza di post usando le fillable (definite nel model)
